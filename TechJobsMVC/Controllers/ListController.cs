@@ -17,15 +17,15 @@ namespace TechJobsMVC.Controllers
             {"all", "All"},
             {"employer", "Employer"},
             {"location", "Location"},
-            {"positionType", "Position Type"},
-            {"coreCompetency", "Skill"}
+            {"positiontype", "Position Type"},
+            {"corecompetency", "Skill"}
         };
         internal static Dictionary<string, List<JobField>> TableChoices = new Dictionary<string, List<JobField>>()
         {
             {"employer", JobData.GetAllEmployers()},
             {"location", JobData.GetAllLocations()},
-            {"positionType", JobData.GetAllPositionTypes()},
-            {"coreCompetency", JobData.GetAllCoreCompetencies()}
+            {"positiontype", JobData.GetAllPositionTypes()},
+            {"corecompetency", JobData.GetAllCoreCompetencies()}
         };
 
         public IActionResult Index()
@@ -36,12 +36,19 @@ namespace TechJobsMVC.Controllers
             ViewBag.locations = JobData.GetAllLocations();
             ViewBag.positionTypes = JobData.GetAllPositionTypes();
             ViewBag.skills = JobData.GetAllCoreCompetencies();
-
+            ViewBag.all = JobData.FindAll();
             return View();
         }
 
         // list jobs by column and value
         public IActionResult Jobs(string column, string value)
+        {
+            var jobs = getJobs(column, value);
+            ViewBag.jobs = jobs;
+            return View();
+        }
+
+        public List<Job> getJobs(string column, string value)
         {
             List<Job> jobs;
             if (column.ToLower().Equals("all"))
@@ -51,13 +58,10 @@ namespace TechJobsMVC.Controllers
             }
             else
             {
-                jobs = JobData.FindByColumnAndValue(column, value);
-                ViewBag.title = "Jobs with " + ColumnChoices[column] + ": " + value;
+                jobs = JobData.FindByColumnAndValue(column.ToLower(), value);
+                ViewBag.title = "Jobs with " + ColumnChoices[column.ToLower()] + ": " + value;
             }
-            ViewBag.jobs = jobs;
-
-            return View();
+            return jobs;
         }
-
     }
 }

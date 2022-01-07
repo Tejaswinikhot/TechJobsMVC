@@ -28,6 +28,87 @@
 
     @{
         //TODO #4: Loop over the search results to display all job fields.
+        @if (ViewBag.jobs != null)
+        {
+
+            @foreach (var job in ViewBag.jobs)
+            {
+                <table class="job-listing">
+                    <tr>
+                        <th>ID:</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a asp-controller="List" asp-action="Jobs" asp-route-column="ID" asp-route-value="@job.Id">@job.Id</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Name:</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a asp-controller="List" asp-action="Jobs" asp-route-column="Name" asp-route-value="@job.Name">@job.Name</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Employer:</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a asp-controller="List" asp-action="Jobs" asp-route-column="Employer" asp-route-value="@job.Employer.Value">@job.Employer.Value</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Location:</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a asp-controller="List" asp-action="Jobs" asp-route-column="Location" asp-route-value="@job.Location">@job.Location.Value</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PositionType:</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    List
+                                    <a asp-controller="List" asp-action="Jobs" asp-route-column="PositionType" asp-route-value="@job.PositionType.Value">@job.PositionType.Value</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>CoreCompetency:</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    List
+                                    <a asp-controller="List" asp-action="Jobs" asp-route-column="CoreCompetency" asp-route-value="@job.CoreCompetency.Value">@job.CoreCompetency.Value</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+
+
+                </table>
+            }
+
+        }
+
     }
 
 </div>
